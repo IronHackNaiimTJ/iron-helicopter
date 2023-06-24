@@ -7,10 +7,18 @@ class Game {
     this.bg = new Background(ctx)
     this.helicopter = new Helicopter(ctx)
     this.obstacles = []
+    this.fps = 60
   }
 
   start() {
-    // TODO: loop. clear, draw, move, addObstacle, checkCollisions, clearObstacles
+    if (!this.drawIntervalId) {
+      // this.audio.play()
+      this.drawIntervalId = setInterval(() => {
+        this.clear();
+        this.move();
+        this.draw();
+      }, 1000 / this.fps);
+    }
   }
 
   clearObstacles() {
@@ -26,20 +34,26 @@ class Game {
   }
 
   draw() {
-    // TODO: draw everything
+    this.bg.draw();
+    this.helicopter.draw();
+
   }
 
   move() {
-    // TODO: move everything
+    this.bg.move();
+    this.helicopter.move();
   }
 
   checkCollisions() {
+    if(this.helicopter.isFloor()){
+      this.gameOver()
+    }
     // TODO: check helicopter on floor?
     // TODO: iterate obstacles. check colX and colY
   }
 
   onKeyEvent(event) {
-    // TODO
+    this.helicopter.onKeyEvent(event);
   }
 
   gameOver() {

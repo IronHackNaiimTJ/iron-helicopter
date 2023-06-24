@@ -6,19 +6,21 @@ class Background {
     this.x = 0
     this.y = 0
 
-    this.vx = -2
+    this.vx = BACKGROUND_SPEED
 
     this.img = new Image()
     this.img.src = "https://image.freepik.com/free-vector/sky-day-game-background_7814-306.jpg"
   }
 
   draw() {
-    // TODO: draw image
-    // TODO: draw image again on the right
+      this.ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+      this.ctx.drawImage(this.img, this.x + this.w, this.y, this.w, this.h);
   }
 
   move() {
-    // TODO: move background
-    // TODO: restart position if out of canvas
+    this.x += this.vx
+    if(this.x < -this.w){
+      this.x = 0
+    }
   }
 }
